@@ -87,7 +87,7 @@ BRSKI defines how a pledge MAY contact a well known URI of a cloud registrar if 
 
 ## Pledge - Cloud Registrar TLS Establishment Details
 
-The pledge MUST use an Implicit Trust Anchor database (see {{?RFC7030}}) to authenticate the cloud registrar service as described in {{?RFC6125}}. The pledge MUST NOT establish a provisional TLS connection (see BRSKI secetion 5.1) with the cloud registrar.
+The pledge MUST use an Implicit Trust Anchor database (see {{?RFC7030}}) to authenticate the cloud registrar service as described in {{?RFC6125}}. The pledge MUST NOT establish a provisional TLS connection (see BRSKI section 5.1) with the cloud registrar.
 
 The cloud registrar MUST validate the identity of the pledge by sending a TLS CertificateRequest message to the pledge during TLS session establishment. The cloud registrar MAY include a certificate_authorities field in the message to specify the set of allowed IDevID issuing CAs that pledges may use when establishing connections with the cloud registrar.
 
@@ -117,15 +117,15 @@ The mechanism by which the cloud registrar determines pledge ownership is out-of
 
 # Voucher Request Redirected to Local Domain Registrar
 
-Once the cloud registar has determined pledge ownership, the cloud registrar may redirect the pledge to the owner's local domain registrar in order to complete bootstrap. Ownership registration will require the owner to register their local domain, and the mechanism by which pledge owners register their domain with the cloud registrar is out-of-scope of this document.
+Once the cloud registar has determined pledge ownership, the cloud registrar may redirect the pledge to the owner's local domain registrar in order to complete bootstrap. Ownership registration will require the owner to register their local domain. The mechanism by which pledge owners register their domain with the cloud registrar is out-of-scope of this document.
 
 The cloud registrar replies to the voucher request with a suitable HTTP 3xx response code as per {{?I-D.ietf-httpbis-bcp56bis}}, including the owner's local domain in the HTTP Location header.
 
-### Pledge handling of Redirect
+## Pledge handling of Redirect
 
-The pledge should complete BRSKI bootstrap as per standard BRSKI operation. The pledge should establish a provisional TLS connection with specified local domain registrar. The pledge should not use its Implicit Trust Anchor database for validating the local domain registrar identity. The pledge should send a voucher request message via the local domain registrar. When the pledge downloads a voucher, it can validate the TLS connection to the local domain registrar and continue with enrollment and bootstrap.
+The pledge should complete BRSKI bootstrap as per standard BRSKI operation after following the HTTP redirect. The pledge should establish a provisional TLS connection with specified local domain registrar. The pledge should not use its Implicit Trust Anchor database for validating the local domain registrar identity. The pledge should send a voucher request message via the local domain registrar. When the pledge downloads a voucher, it can validate the TLS connection to the local domain registrar and continue with enrollment and bootstrap as per standard BRSKI operation.
 
-## Voucher Request Handled by Cloud Registrar
+# Voucher Request Handled by Cloud Registrar
 
 If the cloud registrar issues a voucher, it returns the voucher in a HTTP response with a suitable 2xx response code as per {{?I-D.ietf-httpbis-bcp56bis}}.
 
@@ -133,9 +133,9 @@ If the cloud registrar issues a voucher, it returns the voucher in a HTTP respon
 
 - Option 1: the pledge completes EST enroll against the cloud registrar. Once EST enrol is complete, we need a mechanism to tell the pledge what its service domain is. This could be by including a service domain in the voucher.
 
-- Option 2: the pledge attempts EST enrol against the cloud registrar and the cloud registrar then does a 3xx to the local domain RA to complete cert enrol. The pledge assumes that services are off the local domain. This does not require adding an FQDN to the voucher.
+- Option 2: the pledge attempts EST enrol against the cloud registrar and the cloud registrar responds with a 3xx redirecting the pledge to the local domain RA in order to complete cert enrollment. The pledge assumes that services are off the local domain. This does not require adding an FQDN to the voucher.
 
-- Option 3: we redefine the voucher to include local RA domain info, and the pledge implicitly knows that it got a voucher from the clodu registrar, that voucher included a local domain FQDN, the pledge knows to do EST enroll against the local domain. i.e. it got a 200OK from the cloud registrar, and knows to send the next HTTP request to a different domain. The pledge assumes that services are off the local domain specified in the voucher.
+- Option 3: we enhance the voucher definition to include local RA domain info, and the pledge implicitly knows that it if received a voucher from the cloud registrar, and that voucher included a local domain FQDN, the pledge knows to do EST enroll against the local domain. i.e. it got a 200OK from the cloud registrar, and knows to send the next HTTP request to the EST domain specified in the voucher. The pledge assumes that services are off the local domain specified in the voucher.
 
 # Protocol Details
 
