@@ -55,7 +55,7 @@ Two high level deployment models are documented here:
 
 # Architecture
 
-The high level architecture is illustrated in {{architecture}}. The pledge connects to the cloud registrar during bootstrap. The cloud registrar may redirect the pledge to a local registrar in order to complete bootstrap against the local registrar. If the cloud registrar handles the bootstrap process itself without redirecting the pledge to a local registrar, the cloud registrar may need to inform the pledge what domain to use for accessing services once bootstrap is comlpete.
+The high level architecture is illustrated in {{architecture-figure}}. The pledge connects to the cloud registrar during bootstrap. The cloud registrar may redirect the pledge to a local registrar in order to complete bootstrap against the local registrar. If the cloud registrar handles the bootstrap process itself without redirecting the pledge to a local registrar, the cloud registrar may need to inform the pledge what domain to use for accessing services once bootstrap is comlpete.
 
 Finally, when bootstrapping against a local registrar, the registrar may interact with a backend CA to assist in issuing certificates to the pledge. The mechanisms and protocols by which the registrar interacts with the CA are transparent to the pledge and are out-of-scope of this document.
 
@@ -77,7 +77,7 @@ Finally, when bootstrapping against a local registrar, the registrar may interac
     +---------------->| Services  |
                       +-----------+
 ~~~
-{: #architecture title=High Level Architecture"}
+{: #architecture-figure title=High Level Architecture"}
 
 # Initial Voucher Request
 
