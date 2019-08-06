@@ -2,7 +2,7 @@
 
 title: "BRSKI Cloud Registrar"
 abbrev: BRSKI-CLOUD
-docname: draft-friel-brski-cloud
+docname: draft-friel-anima-brski-cloud
 category: std
 
 stand_alone: yes
