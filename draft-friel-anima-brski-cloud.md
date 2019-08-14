@@ -95,7 +95,7 @@ The cloud registrar MUST validate the identity of the pledge by sending a TLS Ce
 
 The cloud registrar MAY only allow connections from pledges that have an IDevID that is signed by one of a specific set of CAs, e.g. IDevIDs issued by certain manufacturers. 
 
-The cloud registrar MAY allow pledges to connect using self-signed identity certificates.
+The cloud registrar MAY allow pledges to connect using self-signed identity certificates or using Raw Public Key {{?RFC7250}} certificates.
 
 ## Pledge Requests Voucher from the Cloud Registrar
 
