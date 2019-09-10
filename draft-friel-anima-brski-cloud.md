@@ -181,6 +181,8 @@ If the cloud registrar issues a voucher, it returns the voucher in a HTTP respon
 
 ## Voucher Request Handled by Cloud Registrar
 
+[[ TODO: it is TBD which of the following three options should be used. Possibly 1 or 2 of them, maybe all 3. It is possible that some options will be explicitly NOT recommended. There are standards implications too as two of the options require including a DNS-ID in a Voucher. ]]
+
 ### Option 1: EST enroll completed against cloud registrar
 
 The Voucher includes the service domain to use after EST enroll is complete.
