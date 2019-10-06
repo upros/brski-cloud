@@ -53,6 +53,12 @@ Two high level deployment models are documented here:
 
 - Cloud Registrar Based Boostrap: there is no local domain registrar and the pledge completes boostrap using the cloud registrar. As part of boostrap, the cloud registrar may need to tell the client the domain to use for accessing services.
 
+These deployment models facilitate multiple use cases including:
+
+- A pledge is bootstrapping in a remote location and needs to contact a cloud registrar in order to discover its local domain.
+
+- A pledge supports multiple deployment models and needs to discover which deployment model is in use by the operator. For example, a pledge may support connecting to a manufacturer cloud service or an operator deployed service after bootstrapping is complete, and needs to discover the deployment model in use by the pledge operator. The discovery and bootstrap mechanism should be consistent across both manufacturer cloud service and operator deployed services.
+
 # Architecture
 
 The high level architecture is illustrated in {{architecture-figure}}. The pledge connects to the cloud registrar during bootstrap. The cloud registrar may redirect the pledge to a local registrar in order to complete bootstrap against the local registrar. If the cloud registrar handles the bootstrap process itself without redirecting the pledge to a local registrar, the cloud registrar may need to inform the pledge what domain to use for accessing services once bootstrap is complete.
@@ -80,6 +86,10 @@ The architecture illustrates shows the cloud registrar and MASA as being logical
                       +-----------+
 ~~~
 {: #architecture-figure title=High Level Architecture"}
+
+## Network Connectivity
+
+The assumption is that the pledge already has network connectivity prior to connecting to the cloud registrar. The pledge must have an IP address, must be able to make DNBS queries, and must be able to send HTTP requests to the cloud registrar. The pledge operator has already connected the pledge to the network, and the mechanism by which this has happened is out of scope of this document.
 
 # Initial Voucher Request
 
@@ -131,7 +141,9 @@ The pledge should complete BRSKI bootstrap as per standard BRSKI operation after
 
 If the cloud registrar issues a voucher, it returns the voucher in a HTTP response with a suitable 2xx response code as per {{?I-D.ietf-httpbis-bcp56bis}}.
 
-[[ TODO ]] There are a few options here:
+[[ TODO: it is TBD which of the following three options should be used. Possibly 1 or 2 of them, maybe all 3. It is possible that some options will be explicitly NOT recommended. There are standards implications too as two of the options require including a DNS-ID in a Voucher. ]]
+
+There are a few options here:
 
 - Option 1: the pledge completes EST enroll against the cloud registrar. Once EST enrol is complete, we need a mechanism to tell the pledge what its service domain is. This could be by including a service domain in the voucher.
 
