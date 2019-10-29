@@ -1,3 +1,9 @@
+# OLD REPOSITORY**
+
+**All ongoing work has moved to https://github.com/anima-wg/brski-cloud**
+
+**This repository is not longer in active use**
+
 # BRSKI Cloud Registrar
 
 This is the working area for the individual Internet-Draft, "BRSKI Cloud Registrar".
