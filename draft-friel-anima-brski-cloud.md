@@ -84,7 +84,7 @@ The architecture illustrates shows the cloud registrar and MASA as being logical
     |                 +-----------+                +-----------+
     +---------------->| Local     |--------------->|   MASA    |
     |                 | Registrar |                +-----------+
-    |                 +-----------+                
+    |                 +-----------+
     |                       |                      +-----------+
     |                       +--------------------->|    CA     |
     |                                              +-----------+
@@ -111,7 +111,7 @@ The pledge MUST use an Implicit Trust Anchor database (see {{?RFC7030}}) to auth
 
 The cloud registrar MUST validate the identity of the pledge by sending a TLS CertificateRequest message to the pledge during TLS session establishment. The cloud registrar MAY include a certificate_authorities field in the message to specify the set of allowed IDevID issuing CAs that pledges may use when establishing connections with the cloud registrar.
 
-The cloud registrar MAY only allow connections from pledges that have an IDevID that is signed by one of a specific set of CAs, e.g. IDevIDs issued by certain manufacturers. 
+The cloud registrar MAY only allow connections from pledges that have an IDevID that is signed by one of a specific set of CAs, e.g. IDevIDs issued by certain manufacturers.
 
 The cloud registrar MAY allow pledges to connect using self-signed identity certificates or using Raw Public Key {{?RFC7250}} certificates.
 
@@ -177,7 +177,7 @@ There are a few options here:
     | 2. Voucher Request                              |
     |------------------------------------------------>|
     |                                                 |
-    | 3. 3xx Location: localra.example.com            |    
+    | 3. 3xx Location: localra.example.com            |
     |<------------------------------------------------|
     |                                                 |
     | 4. Provisional TLS   |                          |
@@ -220,7 +220,7 @@ The Voucher includes the service domain to use after EST enroll is complete.
     |------------------------------------------------>|
     |                                                 |
     | 3. Voucher Response {service:fqdn}              |
-    |<------------------------------------------------| 
+    |<------------------------------------------------|
     |                                                 |
     | 4. EST enroll                                   |
     |------------------------------------------------>|
@@ -257,13 +257,13 @@ deployments.
     |------------------------------------------------>|
     |                                                 |
     | 3. Voucher Response                             |
-    |<------------------------------------------------| 
+    |<------------------------------------------------|
     |                                                 |
     | 4. EST enroll                                   |
     |------------------------------------------------>|
     |                                                 |
     | 5. 3xx Location: localra.example.com            |
-    |<------------------------------------------------| 
+    |<------------------------------------------------|
     |                                                 |
     | 6. Full TLS          |                          |
     |<-------------------->|                          |
@@ -297,7 +297,7 @@ handshake against the local RA indicated by the voucher response.
     |------------------------------------------------>|
     |                                                 |
     | 3. Voucher Response  {localra:fqdn}             |
-    |<------------------------------------------------| 
+    |<------------------------------------------------|
     |                                                 |
     | 4. Full TLS          |                          |
     |<-------------------->|                          |
