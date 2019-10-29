@@ -55,9 +55,17 @@ Two high level deployment models are documented here:
 
 These deployment models facilitate multiple use cases including:
 
-- A pledge is bootstrapping in a remote location and needs to contact a cloud registrar in order to discover its local domain.
+- A pledge is bootstrapping in a remote location and needs to contact a cloud
+  registrar in order to discover the address of its local domain.
 
-- A pledge supports multiple deployment models and needs to discover which deployment model is in use by the operator. For example, a pledge may support connecting to a manufacturer cloud service or an operator deployed service after bootstrapping is complete, and needs to discover the deployment model in use by the pledge operator. The discovery and bootstrap mechanism should be consistent across both manufacturer cloud service and operator deployed services.
+- A pledge can connect to a manufacturer hosted cloud service or the same
+  software running on-premise.  The systems might not be discoverable locally.
+
+- A pledge needs to connect to a third-party hosted registrar service, because
+  there is no local registrar service available.
+
+- A pledge needs to discover the deployment model in use by the pledge
+  operator, which might include going into some local configuration mode.
 
 # Architecture
 
@@ -229,7 +237,12 @@ The Voucher includes the service domain to use after EST enroll is complete.
 
 ### Option 2: EST redirect by cloud registrar
 
-As trust is already established via the Voucher, the pledge does a full TLS handshake against the local RA.
+As trust is already established via the Voucher, the pledge does a full TLS
+handshake against the local RA.
+
+This scenario is useful when there an existing EST server that has already
+been deployed, but it lacks BRSKI mechanisms.  This is common in SmartGrid
+deployments.
 
 ~~~
 +--------+            +-----------+              +----------+
@@ -268,7 +281,8 @@ As trust is already established via the Voucher, the pledge does a full TLS hand
 ### Option 3: Voucher includes EST domain
 
 The Voucher includes the EST domain to use for EST enroll. It is assumed services are accessed at that domain too.
-As trust is already established via the Voucher, the pledge does a full TLS handshake against the local RA.
+As trust is already established via the Voucher, the pledge does a full TLS
+handshake against the local RA indicated by the voucher response.
 
 ~~~
 +--------+            +-----------+              +----------+
