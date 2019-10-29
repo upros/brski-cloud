@@ -1,4 +1,4 @@
-# OLD REPOSITORY**
+# OLD REPOSITORY
 
 **All ongoing work has moved to https://github.com/anima-wg/brski-cloud**
 
