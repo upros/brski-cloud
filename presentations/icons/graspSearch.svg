@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="68.391701"
+   height="179.46016"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.92.1 r15371"
+   sodipodi:docname="graspSearch.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   version="1.1">
+  <defs
+     id="defs4">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 561.25983 : 1"
+       inkscape:vp_y="0 : 1066.6667 : 0"
+       inkscape:vp_z="793.70078 : 561.25983 : 1"
+       inkscape:persp3d-origin="396.85039 : 374.17322 : 1"
+       id="perspective10" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="-48.243597"
+     inkscape:cy="-5.6753474"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:window-width="1487"
+     inkscape:window-height="1064"
+     inkscape:window-x="42"
+     inkscape:window-y="-7"
+     inkscape:window-maximized="0"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3158"
+       originx="-261.51899"
+       originy="-794.48369"
+       spacingx="1.0666667"
+       spacingy="1.0666667" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>Computer sending wireless signal network</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-261.51899,-148.57581)">
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:4.25438309;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path3160"
+       sodipodi:cx="260.12549"
+       sodipodi:cy="238.49255"
+       sodipodi:rx="21.271915"
+       sodipodi:ry="42.543831"
+       d="m 263.67489,196.54515 a 21.271915,42.543831 0 0 1 17.69894,39.94525 21.271915,42.543831 0 0 1 -15.74276,43.09634"
+       sodipodi:start="4.8800318"
+       sodipodi:end="1.3089969"
+       sodipodi:open="true" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:6.51385021;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path3164"
+       sodipodi:cx="272.48914"
+       sodipodi:cy="238.00189"
+       sodipodi:rx="32.569252"
+       sodipodi:ry="65.138504"
+       d="m 277.9236,173.77658 a 32.569252,65.138504 0 0 1 27.0987,61.15983 32.569252,65.138504 0 0 1 -24.10362,65.98444"
+       sodipodi:start="4.8800318"
+       sodipodi:end="1.3089969"
+       sodipodi:open="true" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:8.74358749;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path3166"
+       sodipodi:cx="281.82016"
+       sodipodi:cy="239.17796"
+       sodipodi:rx="43.717937"
+       sodipodi:ry="87.435875"
+       d="m 289.11488,152.96787 a 43.717937,87.435875 0 0 1 36.37478,82.09528 43.717937,87.435875 0 0 1 -32.35446,88.57138"
+       sodipodi:start="4.8800318"
+       sodipodi:end="1.3089969"
+       sodipodi:open="true" />
+  </g>
+</svg>
