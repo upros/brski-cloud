@@ -65,35 +65,77 @@ These deployment models facilitate multiple use cases including:
   there is no local registrar service available.
 
 - A pledge needs to discover the deployment model in use by the pledge
-  operator, which might include going into some local configuration mode.
+operator, which might include going into some local configuration mode.
+
+## Target use cases
+
+An end user unboxes a device, and connects it to a local network (using a cable).
+The device should join a (owner domain) Registrar operated by the end user's organization, which is not physically present on the local network.
+
+The end user is at their home office, while the device belongs to their work.
+Or the end user is at a small satellite office which lacks correctly trained IT personnel.
+
+The end user's organization operates an (owner domain) Registrar at their head-quarters, or in a hosted data center.
+A registrar may also be operated on behalf of the owner through an outsourced IT arrangement.
+
+
 
 # Architecture
 
-The high level architecture is illustrated in {{architecture-figure}}. The pledge connects to the cloud registrar during bootstrap. The cloud registrar may redirect the pledge to a local registrar in order to complete bootstrap against the local registrar. If the cloud registrar handles the bootstrap process itself without redirecting the pledge to a local registrar, the cloud registrar may need to inform the pledge what domain to use for accessing services once bootstrap is complete.
+The high level architecture is illustrated in {{architecture-figure}}.
 
-Finally, when bootstrapping against a local registrar, the registrar may interact with a backend CA to assist in issuing certificates to the pledge. The mechanisms and protocols by which the registrar interacts with the CA are transparent to the pledge and are out-of-scope of this document.
+The pledge connects to the cloud registrar during bootstrap.
 
-The architecture illustrates shows the cloud registrar and MASA as being logically separate entities. The two functions could of course be integrated into a single service.
+The cloud registrar may redirect the pledge to a local/owner registrar in order to complete bootstrap against the local registrar.
+
+If the cloud registrar handles the bootstrap process itself without redirecting the pledge to a local registrar, the cloud registrar may need to inform the pledge what domain to use for accessing services once bootstrap is complete.
+
+Finally, when bootstrapping against a local/owner registrar, this registrar may interact with a backend CA to assist in issuing certificates to the pledge.
+The mechanisms and protocols by which the registrar interacts with the CA are transparent to the pledge and are out-of-scope of this document.
+
+The architecture illustrates shows the cloud registrar and MASA as being logically separate entities.
+The two functions could of course be integrated into a single service.
+
+XXX NONCE-less voucher.
+If the Cloud Registrar issues a voucher directly, while it may include a nonce, because that nonce does not go through the Owner, which means that the MASA has no audit trail that the
+pledge really connected to the Owner Registrar.
+
+TWO CHOICES:
+1. Cloud Registrar redirects to Owner Registrar
+2. Cloud Registrar returns VOUCHER pinning Owner Register.
 
 ~~~
+|<--------------OWNER------------------------>|     MANUFACTURER
+
+ On-site                Cloud
 +--------+                                         +-----------+
 | Pledge |---------------------------------------->| Cloud     |
 +--------+                                         | Registrar |
-    |                                              +-----------+
-    |
-    |                 +-----------+                +-----------+
-    +---------------->| Local     |--------------->|   MASA    |
-    |                 | Registrar |                +-----------+
+    |                                              +---+  +----+
+    |                                                  |??|
+    |                 +-----------+                +---+  +----+
+    +---------------->|  Owner    |--------------->|   MASA    |
+    |   VR-sign(N)    | Registrar |sign(VR-sign(N))+-----------+
     |                 +-----------+
-    |                       |                      +-----------+
-    |                       +--------------------->|    CA     |
-    |                                              +-----------+
+    |                       |    +-----------+
+    |                       +--->|    CA     |
+    |                            +-----------+
     |
     |                 +-----------+
     +---------------->| Services  |
                       +-----------+
 ~~~
-{: #architecture-figure title=High Level Architecture"}
+{: #architecture-figure title="High Level Architecture"}
+
+## Interested Parties
+
+1. OEM - Equipment manufacturer.  Operate the MASA.
+
+2. Network operator. Operate the Local Registrar. Often operated by end owner
+   (company), or by outsourced IT entity.
+
+3. Network integrator. They operate ?Cloud Registrar?.
+
 
 ## Network Connectivity
 
@@ -165,6 +207,8 @@ There are a few options here:
 
 ## Voucher Request Redirected to Local Domain Registrar
 
+This is FLOW ONE.
+
 ~~~
 +--------+            +-----------+              +----------+
 | Pledge |            | Local     |              | Cloud RA |
@@ -207,6 +251,8 @@ There are a few options here:
 
 The Voucher includes the service domain to use after EST enroll is complete.
 
+REMOVE THIS CASE.
+
 ~~~
 +--------+            +-----------+              +----------+
 | Pledge |            | Local     |              | Cloud RA |
@@ -243,6 +289,8 @@ handshake against the local RA.
 This scenario is useful when there an existing EST server that has already
 been deployed, but it lacks BRSKI mechanisms.  This is common in SmartGrid
 deployments.
+
+REMOVE THIS CASE.
 
 ~~~
 +--------+            +-----------+              +----------+
@@ -283,6 +331,9 @@ deployments.
 The Voucher includes the EST domain to use for EST enroll. It is assumed services are accessed at that domain too.
 As trust is already established via the Voucher, the pledge does a full TLS
 handshake against the local RA indicated by the voucher response.
+
+THIS CASE IS THE VOUCHER REDIRECT.
+NEEDS EXTENSTION to Voucher.
 
 ~~~
 +--------+            +-----------+              +----------+
