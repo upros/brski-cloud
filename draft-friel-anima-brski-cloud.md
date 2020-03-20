@@ -168,10 +168,10 @@ There are a few options here:
 ~~~
 +--------+            +-----------+              +----------+
 | Pledge |            | Local     |              | Cloud RA |
-|        |            | Registrar |              | / MASA   |
+|        |            | Registrar |              |          |
 +--------+            +-----------+              +----------+
     |                                                 |
-    | 1. Full TLS                                     |
+    | 1. Mutual-authenticated TLS                     |
     |<----------------------------------------------->|
     |                                                 |
     | 2. Voucher Request                              |
@@ -179,10 +179,10 @@ There are a few options here:
     |                                                 |
     | 3. 3xx Location: localra.example.com            |
     |<------------------------------------------------|
-    |                                                 |
-    | 4. Provisional TLS   |                          |
-    |<-------------------->|                          |
-    |                      |                          |
+    |
+    | 4. Provisional TLS   |                     +---------+
+    |<-------------------->|                     |  MASA   |
+    |                      |                     +---------+
     | 5. Voucher Request   |                          |
     |--------------------->| 6. Voucher Request       |
     |                      |------------------------->|
@@ -225,7 +225,7 @@ The Voucher includes the service domain to use after EST enroll is complete.
     | 4. EST enroll                                   |
     |------------------------------------------------>|
     |                                                 |
-    | 5. Certificate                                  |
+    | 5. Certificate  (namespace restrictions)        |
     |<------------------------------------------------|
     |                                                 |
     | 6. Full TLS          |                          |
