@@ -191,15 +191,9 @@ The pledge should complete BRSKI bootstrap as per standard BRSKI operation after
 
 If the cloud registrar issues a voucher, it returns the voucher in a HTTP response with a suitable 2xx response code as per {{?I-D.ietf-httpbis-bcp56bis}}.
 
-[[ TODO: it is TBD which of the following three options should be used. Possibly 1 or 2 of them, maybe all 3. It is possible that some options will be explicitly NOT recommended. There are standards implications too as two of the options require including a DNS-ID in a Voucher. ]]
-
-There are a few options here:
-
-- Option 1: the pledge completes EST enroll against the cloud registrar. Once EST enrol is complete, we need a mechanism to tell the pledge what its service domain is. This could be by including a service domain in the voucher.
-
-- Option 2: the pledge attempts EST enrol against the cloud registrar and the cloud registrar responds with a 3xx redirecting the pledge to the local domain RA in order to complete cert enrollment. The pledge assumes that services are off the local domain. This does not require adding an FQDN to the voucher.
-
-- Option 3: we enhance the voucher definition to include local RA domain info, and the pledge implicitly knows that it if received a voucher from the cloud registrar, and that voucher included a local domain FQDN, the pledge knows to do EST enroll against the local domain. i.e. it got a 200OK from the cloud registrar, and knows to send the next HTTP request to the EST domain specified in the voucher. The pledge assumes that services are off the local domain specified in the voucher.
+Alternatively, it may redirect to the customers' Registration Authority (RA)
+with a 307 Temporary Redirect to locate the RA.  The client MUST POST
+its voucher request to the new location.
 
 # Protocol Details
 
@@ -207,7 +201,7 @@ There are a few options here:
 
 ## Voucher Request Redirected to Local Domain Registrar
 
-This is FLOW ONE.
+This is FLOW ONE.  EXPLAIN APPLICABILITY.
 
 ~~~
 +--------+            +-----------+              +----------+
@@ -221,7 +215,7 @@ This is FLOW ONE.
     | 2. Voucher Request                              |
     |------------------------------------------------>|
     |                                                 |
-    | 3. 3xx Location: localra.example.com            |
+    | 3. 307 Location: localra.example.com            |
     |<------------------------------------------------|
     |
     | 4. Provisional TLS   |                     +---------+
@@ -245,101 +239,18 @@ This is FLOW ONE.
 
 ## Voucher Request Handled by Cloud Registrar
 
-[[ TODO: it is TBD which of the following three options should be used. Possibly 1 or 2 of them, maybe all 3. It is possible that some options will be explicitly NOT recommended. There are standards implications too as two of the options require including a DNS-ID in a Voucher. ]]
-
-### Option 1: EST enroll completed against cloud registrar
-
-The Voucher includes the service domain to use after EST enroll is complete.
-
-REMOVE THIS CASE.
-
-~~~
-+--------+            +-----------+              +----------+
-| Pledge |            | Local     |              | Cloud RA |
-|        |            | Service   |              | / MASA   |
-+--------+            +-----------+              +----------+
-    |                                                 |
-    | 1. Full TLS                                     |
-    |<----------------------------------------------->|
-    |                                                 |
-    | 2. Voucher Request                              |
-    |------------------------------------------------>|
-    |                                                 |
-    | 3. Voucher Response {service:fqdn}              |
-    |<------------------------------------------------|
-    |                                                 |
-    | 4. EST enroll                                   |
-    |------------------------------------------------>|
-    |                                                 |
-    | 5. Certificate  (namespace restrictions)        |
-    |<------------------------------------------------|
-    |                                                 |
-    | 6. Full TLS          |                          |
-    |<-------------------->|                          |
-    |                      |                          |
-    | 7. Service Access    |                          |
-    |--------------------->|                          |
-~~~
-
-### Option 2: EST redirect by cloud registrar
-
-As trust is already established via the Voucher, the pledge does a full TLS
-handshake against the local RA.
-
-This scenario is useful when there an existing EST server that has already
-been deployed, but it lacks BRSKI mechanisms.  This is common in SmartGrid
-deployments.
-
-REMOVE THIS CASE.
-
-~~~
-+--------+            +-----------+              +----------+
-| Pledge |            | Local     |              | Cloud RA |
-|        |            | Registrar |              | / MASA   |
-+--------+            +-----------+              +----------+
-    |                                                 |
-    | 1. Full TLS                                     |
-    |<----------------------------------------------->|
-    |                                                 |
-    | 2. Voucher Request                              |
-    |------------------------------------------------>|
-    |                                                 |
-    | 3. Voucher Response                             |
-    |<------------------------------------------------|
-    |                                                 |
-    | 4. EST enroll                                   |
-    |------------------------------------------------>|
-    |                                                 |
-    | 5. 3xx Location: localra.example.com            |
-    |<------------------------------------------------|
-    |                                                 |
-    | 6. Full TLS          |                          |
-    |<-------------------->|                          |
-    |                      |                          |
-    | 7. EST Enrol         |                          |
-    |--------------------->|                          |
-    |                      |                          |
-    | 8. Certificate       |                          |
-    |<---------------------|                          |
-    |                      |                          |
-    | 9. etc.              |                          |
-    |--------------------->|                          |
-~~~
-
-### Option 3: Voucher includes EST domain
-
 The Voucher includes the EST domain to use for EST enroll. It is assumed services are accessed at that domain too.
 As trust is already established via the Voucher, the pledge does a full TLS
 handshake against the local RA indicated by the voucher response.
 
-THIS CASE IS THE VOUCHER REDIRECT.
+EXPLAIN APPLICABILITY.
 NEEDS EXTENSTION to Voucher.
 
 ~~~
-+--------+            +-----------+              +----------+
-| Pledge |            | Local     |              | Cloud RA |
-|        |            | Registrar |              | / MASA   |
-+--------+            +-----------+              +----------+
++--------+                                       +----------+
+| Pledge |                                       | Cloud RA |
+|        |                                       | / MASA   |
++--------+                                       +----------+
     |                                                 |
     | 1. Full TLS                                     |
     |<----------------------------------------------->|
@@ -350,18 +261,29 @@ NEEDS EXTENSTION to Voucher.
     | 3. Voucher Response  {localra:fqdn}             |
     |<------------------------------------------------|
     |                                                 |
+    |                 +----------+                    |
+    |                 | RFC7030  |                    |
+    |                 |  EST     |                    |
+    |                 | Registrar|                    |
+    |                 +----------+                    |
+    |                      |                          |
     | 4. Full TLS          |                          |
     |<-------------------->|                          |
-    |                      |                          |
+    |                                                 |
+    |     3a. /voucher_status POST  success           |
+    |------------------------------------------------>|
+    |     ON FAILURE 3b. /voucher_status POST         |
+    |                                                 |
     | 5. EST Enrol         |                          |
     |--------------------->|                          |
     |                      |                          |
     | 6. Certificate       |                          |
     |<---------------------|                          |
     |                      |                          |
-    | 7. etc.              |                          |
+    | 7. /enrollstatus     |                          |
     |--------------------->|                          |
 ~~~
+
 
 # Pledge Certificate Identity Considerations
 
