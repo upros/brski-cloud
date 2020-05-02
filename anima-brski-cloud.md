@@ -4,6 +4,7 @@ title: "BRSKI Cloud Registrar"
 abbrev: BRSKI-CLOUD
 docname: draft-friel-anima-brski-cloud-02
 category: std
+ipr: trust200902
 
 stand_alone: yes
 pi: [toc, sortrefs, symrefs]

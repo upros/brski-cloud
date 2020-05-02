@@ -1,5 +1,5 @@
-DRAFT:=brski-cloud
-VERSION:=$(shell ./getver ${DRAFT}.mkd )
+DRAFT:=anima-brski-cloud
+VERSION:=$(shell ./getver ${DRAFT}.md )
 #YANGDATE=2020-01-06
 #YANGFILE=yang/ietf-delegated-voucher@${YANGDATE}.yang
 #PYANG=pyang
@@ -10,9 +10,9 @@ ${DRAFT}-${VERSION}.txt: ${DRAFT}.txt
 	cp ${DRAFT}.txt ${DRAFT}-${VERSION}.txt
 	: git add ${DRAFT}-${VERSION}.txt ${DRAFT}.txt
 
-%.xml: %.mkd ${EXAMPLES}
-	kramdown-rfc2629 ${DRAFT}.mkd >${DRAFT}.v2.xml
-	xml2rfc --v2v3 ${DRAFT}.v2.xml && mv ${DRAFT}.v2v3.xml ${DRAFT}.xml
+%.xml: %.md ${EXAMPLES}
+	kramdown-rfc2629 ${DRAFT}.md >${DRAFT}.v2.xml
+	xml2rfc --v2v3 ${DRAFT}.v2.xml && mv ${DRAFT}.v2.v2v3.xml ${DRAFT}.xml
 	: git add ${DRAFT}.xml
 
 %.txt: %.xml
