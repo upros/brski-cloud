@@ -26,6 +26,10 @@ author:
     org: Sandelman Software Works
     email: mcr+ietf@sandelman.ca
 
+normative:
+  RFC8366:
+  I-D.ietf-anima-bootstrapping-keyinfra:
+
 informative:
   IEEE802.1AR:
     target: "http://standards.ieee.org/findstds/standard/802.1AR-2018.html"
@@ -45,12 +49,16 @@ RFCED REMOVE: It is being actively worked on at https://github.com/anima-wg/brsk
 
 # Introduction
 
-Bootstrapping Remote Secure Key Infrastructures (BRSKI) {{?I-D.ietf-anima-bootstrapping-keyinfra}} specifies automated bootstrapping of an Autonomic Control Plane.
+Bootstrapping Remote Secure Key Infrastructures (BRSKI) {{I-D.ietf-anima-bootstrapping-keyinfra}} specifies automated bootstrapping of an Autonomic Control Plane.
 BRSKI Section 2.7 describes how a pledge "MAY contact a well known URI of a cloud registrar if a local registrar cannot be discovered or if the pledge's target use cases do not include a local registrar".
 
 This document further specifies use of a BRSKI cloud registrar and clarifies operations that are not sufficiently specified in BRSKI.
 
 ## Terminology
+
+{::boilerplate bcp14}
+
+This document uses the terms Pledge, Registrar, MASA, and Voucher from {{I-D.ietf-anima-bootstrapping-keyinfra}} and {{RFC8366}}.
 
 - Local Domain: The domain where the pledge is physically located and bootstrapping from.
 This may be different to the pledge owner's domain.
