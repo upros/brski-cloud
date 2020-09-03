@@ -27,6 +27,7 @@ author:
     email: mcr+ietf@sandelman.ca
 
 normative:
+  RFC7030:
   RFC8366:
   I-D.ietf-anima-bootstrapping-keyinfra:
 
@@ -76,10 +77,22 @@ There may not be a Local Domain Registrar in all deployment scenarios.
 ## Target Use Cases
 
 Two high level use cases are documented here.
+There are more details provided in sections {{redirect2Registrar}} and {{voucher2EST}}.
+While both use cases aid with incremental deployment of BRSKI infrastructure, for many smaller sites (such as teleworkers) no further infrastructure are expected.
+
+The pledge is not expected to know which of these two situations it is in.
+The pledge determines this based upon signals that it receives from the Cloud Registrar.
+The Cloud Registrar is expected to make the determination based upon the identity presented by the pledge.
+
+While a Cloud Registrar will typically handle all the devices of a particular product line from a  particular manufacturer there are no restrictions on how the Cloud Registrar is horizontally (many sites) or vertically (more equipment at one site) scaled.
+It is also entirely possible that all devices sold by through a particular VAR might be preloaded with a configuration that changes the Cloud Registrar URL to point to a VAR.
+Such an effort would require unboxing each device in a controlled environment, but the provisioning could occur using a regular BRSKI or SZTP {{?RFC8572}} process.
 
 ### Owner Registrar Discovery
 
-A pledge is bootstrapping from a remote location with no local domain registrar, and needs to discover its owner registrar.
+This mechani
+
+A pledge is bootstrapping from a remote location with no local domain registrar (specifically: with no local infrastructure to provide for automated discovery), and needs to discover its owner registrar.
 The cloud registrar is used by the pledge to discover the owner registrar.
 The cloud registrar redirects the pledge to the owner registrar, and the pledge completes bootstrap against the owner registrar.
 
@@ -90,12 +103,11 @@ There is no local domain registrar, and the pledge needs to discover and bootstr
 
 A pledge is bootstrapping where the owner organization does not yet have an owner registrar deployed.
 The cloud registrer issues a voucher, and the pledge completes trust bootstrap using the cloud registrar.
-The voucher issued by the cloud includes domain information for the owner's EST {{?RFC7030}} service the pledge should use for certificate enrollment.
+The voucher issued by the cloud includes domain information for the owner's EST {{RFC7030}} service the pledge should use for certificate enrollment.
 
-A typical example is an organization that has an EST service deployed, but does not have yet a BRSKI Registrar service deployed.
+In one use case, an organization has an EST service deployed, but does not have yet a BRSKI capable Registrar service deployed.
 The pledge is deployed in the organizations domain, but does not discover a local domain, or owner, registrar.
-The pledge uses the cloud registrar to bootstrap, and the cloud registrar directs the pledge to the organization's EST service.
-
+The pledge uses the cloud registrar to bootstrap, and the cloud registrar provides a voucher that includes instructions on finding the organization's EST service.
 
 # Architecture
 
@@ -259,7 +271,7 @@ The pledge should extract the "est-domain" field from the voucher, and should co
 
 [[ TODO ]]  Missing detailed BRSKI steps e.g. CSR attributes, logging, etc.
 
-## Voucher Request Redirected to Local Domain Registrar
+## Voucher Request Redirected to Local Domain Registrar {#redirect2Registrar}
 
 This is FLOW ONE.  EXPLAIN APPLICABILITY.
 
@@ -297,7 +309,7 @@ This is FLOW ONE.  EXPLAIN APPLICABILITY.
     |--------------------->|                          |
 ~~~
 
-## Voucher Request Handled by Cloud Registrar
+## Voucher Request Handled by Cloud Registrar {#voucher2EST}
 
 The Voucher includes the EST domain to use for EST enroll.
 It is assumed services are accessed at that domain too.
