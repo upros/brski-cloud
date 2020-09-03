@@ -32,6 +32,7 @@ normative:
   I-D.ietf-anima-bootstrapping-keyinfra:
 
 informative:
+  RFC6125:
   IEEE802.1AR:
     target: "http://standards.ieee.org/findstds/standard/802.1AR-2018.html"
     title: "IEEE 802.1AR Secure Device Identifier"
@@ -189,11 +190,19 @@ As another example, the registrar may deem the manufacturer serial number in an 
 ### Cloud Registrar Discovery
 
 BRSKI defines how a pledge MAY contact a well known URI of a cloud registrar if a local domain registrar cannot be discovered.
-Additionally, certain pledge types may never attempt to discover a local domain registrar and may automatically bootstrap against a cloud registrar. The details of the URI are manufacturer specific, with BRSKI giving the example "brski-registrar.manufacturer.example.com".
+Additionally, certain pledge types may never attempt to discover a local domain registrar and may automatically bootstrap against a cloud registrar.
+
+The details of the URI are manufacturer specific, with BRSKI giving the example "brski-registrar.manufacturer.example.com".
+
+The Pledge SHOULD be provided with the entire URL of the Cloud Registrar, including the path component, which is typically "/.well-known/brski/requestvoucher", but may be another value.
 
 ### Pledge - Cloud Registrar TLS Establishment Details
 
-The pledge MUST use an Implicit Trust Anchor database (see {{RFC7030}}) to authenticate the cloud registrar service as described in {{?RFC6125}}.
+The pledge MUST use an Implicit Trust Anchor database (see {{RFC7030}}) to authenticate the cloud registrar service.
+The Pledge can be done with pre-loaded trust-anchors that are used to validate the TLS connection.
+This can be using a public Web PKI trust anchors using {{RFC6125}} DNS-ID mechanisms, a pinned certification authority, or even a pinned public.
+This is a local implementation decision.
+
 The pledge MUST NOT establish a provisional TLS connection (see BRSKI section 5.1) with the cloud registrar.
 
 The cloud registrar MUST validate the identity of the pledge by sending a TLS CertificateRequest message to the pledge during TLS session establishment.
