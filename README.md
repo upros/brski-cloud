@@ -8,9 +8,12 @@
 
 This is the working area for the individual Internet-Draft, "BRSKI Cloud Registrar".
 
-* [Editor's Copy](https://upros.github.io/brski-cloud/#go.draft-friel-anima-brski-cloud.html)
-* [Individual Draft](https://tools.ietf.org/html/draft-friel-anima-brski-cloud)
+* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-friel-anima-brski-cloud)
+* [Datatracker page](https://datatracker.ietf.org/doc/draft-friel-anima-brski-cloud)
+
+Links which are not yet working:
 * [Compare Editor's Copy to Individual Draft](https://upros.github.io/brski-cloud/#go.draft-friel-anima-brski-cloud.diff)
+* [Editor's Copy](https://upros.github.io/brski-cloud/#go.draft-friel-anima-brski-cloud.html)
 
 ## Building the Draft
 
