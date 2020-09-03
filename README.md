@@ -1,8 +1,8 @@
-# OLD REPOSITORY
+# REPOSITORY
 
-**All ongoing work has moved to https://github.com/anima-wg/brski-cloud**
+**This repository is https://github.com/anima-wg/brski-cloud**
 
-**This repository is no longer in active use**
+**This is the active repository.
 
 # BRSKI Cloud Registrar
 
