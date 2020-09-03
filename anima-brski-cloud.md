@@ -193,7 +193,7 @@ Additionally, certain pledge types may never attempt to discover a local domain 
 
 ### Pledge - Cloud Registrar TLS Establishment Details
 
-The pledge MUST use an Implicit Trust Anchor database (see {{?RFC7030}}) to authenticate the cloud registrar service as described in {{?RFC6125}}.
+The pledge MUST use an Implicit Trust Anchor database (see {{RFC7030}}) to authenticate the cloud registrar service as described in {{?RFC6125}}.
 The pledge MUST NOT establish a provisional TLS connection (see BRSKI section 5.1) with the cloud registrar.
 
 The cloud registrar MUST validate the identity of the pledge by sending a TLS CertificateRequest message to the pledge during TLS session establishment.
