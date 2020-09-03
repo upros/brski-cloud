@@ -28,17 +28,18 @@ author:
 
 informative:
   IEEE802.1AR:
-    title: Secure Device Identity
+    target: "http://standards.ieee.org/findstds/standard/802.1AR-2018.html"
+    title: "IEEE 802.1AR Secure Device Identifier"
     author:
-#      -
-        ins: IEEE
-        name: IEEE
-        org: IEEE
-    date: 2017
+      ins: "IEEE Standard"
+    date: 2018
 
 --- abstract
 
-This document specifies the behaviour of a BRSKI Cloud Registrar, and how a pledge can interact with a BRSKI Cloud Registrar when bootstrapping.
+This document specifies the behaviour of a BRSKI Cloud Registrar, and how a
+pledge can interact with a BRSKI Cloud Registrar when bootstrapping.
+
+RFCED REMOVE: It is being actively worked on at https://github.com/anima-wg/brski-cloud
 
 --- middle
 
