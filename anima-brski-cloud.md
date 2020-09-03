@@ -202,7 +202,11 @@ The voucher MAY include the "additional-configuration" field as defined in [[ TO
 
 ### Redirect Response
 
-The cloud registrar returned a 307 response to the couvher request. The pledge should complete BRSKI bootstrap as per standard BRSKI operation after following the HTTP redirect. The pledge should establish a provisional TLS connection with specified local domain registrar. The pledge should not use its Implicit Trust Anchor database for validating the local domain registrar identity. The pledge should send a voucher request message via the local domain registrar. When the pledge downloads a voucher, it can validate the TLS connection to the local domain registrar and continue with enrollment and bootstrap as per standard BRSKI operation.
+The cloud registrar returned a 307 response to the voucher request. 
+The pledge should complete BRSKI bootstrap as per standard BRSKI operation after following the HTTP redirect. 
+The pledge should establish a provisional TLS connection with specified local domain registrar. 
+The pledge should not use its Implicit Trust Anchor database for validating the local domain registrar identity. 
+The pledge should send a voucher request message via the local domain registrar. When the pledge downloads a voucher, it can validate the TLS connection to the local domain registrar and continue with enrollment and bootstrap as per standard BRSKI operation.
 
 ### Voucher Response
 
