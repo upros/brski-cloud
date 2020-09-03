@@ -163,7 +163,7 @@ TWO CHOICES:
 2. Network operator. Operate the Owner Registrar.
 Often operated by end owner (company), or by outsourced IT entity.
 
-3. Network integrator. They operate ?Cloud Registrar?.
+3. Network integrator. They operate a Cloud Registrar.
 
 
 ## Network Connectivity
