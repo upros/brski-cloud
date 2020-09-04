@@ -26,7 +26,13 @@ author:
     org: Sandelman Software Works
     email: mcr+ietf@sandelman.ca
 
+normative:
+  RFC7030:
+  RFC8366:
+  I-D.ietf-anima-bootstrapping-keyinfra:
+
 informative:
+  RFC6125:
   IEEE802.1AR:
     target: "http://standards.ieee.org/findstds/standard/802.1AR-2018.html"
     title: "IEEE 802.1AR Secure Device Identifier"
@@ -45,12 +51,16 @@ RFCED REMOVE: It is being actively worked on at https://github.com/anima-wg/brsk
 
 # Introduction
 
-Bootstrapping Remote Secure Key Infrastructures (BRSKI) {{?I-D.ietf-anima-bootstrapping-keyinfra}} specifies automated bootstrapping of an Autonomic Control Plane.
+Bootstrapping Remote Secure Key Infrastructures (BRSKI) {{I-D.ietf-anima-bootstrapping-keyinfra}} specifies automated bootstrapping of an Autonomic Control Plane.
 BRSKI Section 2.7 describes how a pledge "MAY contact a well known URI of a cloud registrar if a local registrar cannot be discovered or if the pledge's target use cases do not include a local registrar".
 
 This document further specifies use of a BRSKI cloud registrar and clarifies operations that are not sufficiently specified in BRSKI.
 
 ## Terminology
+
+{::boilerplate bcp14}
+
+This document uses the terms Pledge, Registrar, MASA, and Voucher from {{I-D.ietf-anima-bootstrapping-keyinfra}} and {{RFC8366}}.
 
 - Local Domain: The domain where the pledge is physically located and bootstrapping from.
 This may be different to the pledge owner's domain.
@@ -68,10 +78,21 @@ There may not be a Local Domain Registrar in all deployment scenarios.
 ## Target Use Cases
 
 Two high level use cases are documented here.
+There are more details provided in sections {{redirect2Registrar}} and {{voucher2EST}}.
+While both use cases aid with incremental deployment of BRSKI infrastructure, for many smaller sites (such as teleworkers) no further infrastructure are expected.
+
+The pledge is not expected to know which of these two situations it is in.
+The pledge determines this based upon signals that it receives from the Cloud Registrar.
+The Cloud Registrar is expected to make the determination based upon the identity presented by the pledge.
+
+While a Cloud Registrar will typically handle all the devices of a particular product line from a  particular manufacturer there are no restrictions on how the Cloud Registrar is horizontally (many sites) or vertically (more equipment at one site) scaled.
+It is also entirely possible that all devices sold by through a particular VAR might be preloaded with a configuration that changes the Cloud Registrar URL to point to a VAR.
+Such an effort would require unboxing each device in a controlled environment, but the provisioning could occur using a regular BRSKI or SZTP {{?RFC8572}} process.
 
 ### Owner Registrar Discovery
 
-A pledge is bootstrapping from a remote location with no local domain registrar, and needs to discover its owner registrar.
+
+A pledge is bootstrapping from a remote location with no local domain registrar (specifically: with no local infrastructure to provide for automated discovery), and needs to discover its owner registrar.
 The cloud registrar is used by the pledge to discover the owner registrar.
 The cloud registrar redirects the pledge to the owner registrar, and the pledge completes bootstrap against the owner registrar.
 
@@ -82,12 +103,11 @@ There is no local domain registrar, and the pledge needs to discover and bootstr
 
 A pledge is bootstrapping where the owner organization does not yet have an owner registrar deployed.
 The cloud registrer issues a voucher, and the pledge completes trust bootstrap using the cloud registrar.
-The voucher issued by the cloud includes domain information for the owner's EST {{?RFC7030}} service the pledge should use for certificate enrollment.
+The voucher issued by the cloud includes domain information for the owner's EST {{RFC7030}} service the pledge should use for certificate enrollment.
 
-A typical example is an organization that has an EST service deployed, but does not have yet a BRSKI Registrar service deployed.
+In one use case, an organization has an EST service deployed, but does not have yet a BRSKI capable Registrar service deployed.
 The pledge is deployed in the organizations domain, but does not discover a local domain, or owner, registrar.
-The pledge uses the cloud registrar to bootstrap, and the cloud registrar directs the pledge to the organization's EST service.
-
+The pledge uses the cloud registrar to bootstrap, and the cloud registrar provides a voucher that includes instructions on finding the organization's EST service.
 
 # Architecture
 
@@ -143,7 +163,7 @@ TWO CHOICES:
 2. Network operator. Operate the Owner Registrar.
 Often operated by end owner (company), or by outsourced IT entity.
 
-3. Network integrator. They operate ?Cloud Registrar?.
+3. Network integrator. They operate a Cloud Registrar.
 
 
 ## Network Connectivity
@@ -169,11 +189,19 @@ As another example, the registrar may deem the manufacturer serial number in an 
 ### Cloud Registrar Discovery
 
 BRSKI defines how a pledge MAY contact a well known URI of a cloud registrar if a local domain registrar cannot be discovered.
-Additionally, certain pledge types may never attempt to discover a local domain registrar and may automatically bootstrap against a cloud registrar. The details of the URI are manufacturer specific, with BRSKI giving the example "brski-registrar.manufacturer.example.com".
+Additionally, certain pledge types may never attempt to discover a local domain registrar and may automatically bootstrap against a cloud registrar.
+
+The details of the URI are manufacturer specific, with BRSKI giving the example "brski-registrar.manufacturer.example.com".
+
+The Pledge SHOULD be provided with the entire URL of the Cloud Registrar, including the path component, which is typically "/.well-known/brski/requestvoucher", but may be another value.
 
 ### Pledge - Cloud Registrar TLS Establishment Details
 
-The pledge MUST use an Implicit Trust Anchor database (see {{?RFC7030}}) to authenticate the cloud registrar service as described in {{?RFC6125}}.
+The pledge MUST use an Implicit Trust Anchor database (see {{RFC7030}}) to authenticate the cloud registrar service.
+The Pledge can be done with pre-loaded trust-anchors that are used to validate the TLS connection.
+This can be using a public Web PKI trust anchors using {{RFC6125}} DNS-ID mechanisms, a pinned certification authority, or even a pinned raw public key.
+This is a local implementation decision.
+
 The pledge MUST NOT establish a provisional TLS connection (see BRSKI section 5.1) with the cloud registrar.
 
 The cloud registrar MUST validate the identity of the pledge by sending a TLS CertificateRequest message to the pledge during TLS session establishment.
@@ -251,7 +279,7 @@ The pledge should extract the "est-domain" field from the voucher, and should co
 
 [[ TODO ]]  Missing detailed BRSKI steps e.g. CSR attributes, logging, etc.
 
-## Voucher Request Redirected to Local Domain Registrar
+## Voucher Request Redirected to Local Domain Registrar {#redirect2Registrar}
 
 This is FLOW ONE.  EXPLAIN APPLICABILITY.
 
@@ -289,7 +317,7 @@ This is FLOW ONE.  EXPLAIN APPLICABILITY.
     |--------------------->|                          |
 ~~~
 
-## Voucher Request Handled by Cloud Registrar
+## Voucher Request Handled by Cloud Registrar {#voucher2EST}
 
 The Voucher includes the EST domain to use for EST enroll.
 It is assumed services are accessed at that domain too.
