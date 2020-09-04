@@ -91,7 +91,6 @@ Such an effort would require unboxing each device in a controlled environment, b
 
 ### Owner Registrar Discovery
 
-This mechani
 
 A pledge is bootstrapping from a remote location with no local domain registrar (specifically: with no local infrastructure to provide for automated discovery), and needs to discover its owner registrar.
 The cloud registrar is used by the pledge to discover the owner registrar.
@@ -200,7 +199,7 @@ The Pledge SHOULD be provided with the entire URL of the Cloud Registrar, includ
 
 The pledge MUST use an Implicit Trust Anchor database (see {{RFC7030}}) to authenticate the cloud registrar service.
 The Pledge can be done with pre-loaded trust-anchors that are used to validate the TLS connection.
-This can be using a public Web PKI trust anchors using {{RFC6125}} DNS-ID mechanisms, a pinned certification authority, or even a pinned public.
+This can be using a public Web PKI trust anchors using {{RFC6125}} DNS-ID mechanisms, a pinned certification authority, or even a pinned raw public key.
 This is a local implementation decision.
 
 The pledge MUST NOT establish a provisional TLS connection (see BRSKI section 5.1) with the cloud registrar.
