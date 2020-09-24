@@ -125,10 +125,6 @@ The mechanisms and protocols by which the registrar interacts with the CA are tr
 The architecture shows the cloud registrar and MASA as being logically separate entities.
 The two functions could of course be integrated into a single service.
 
-[[TODO]] NONCE-less voucher.
-If the Cloud Registrar issues a voucher directly, while it may include a nonce, because that nonce does not go through the Owner, which means that the MASA has no audit trail that the
-pledge really connected to the Owner Registrar.
-
 TWO CHOICES:
 1. Cloud Registrar redirects to Owner Registrar
 2. Cloud Registrar returns VOUCHER pinning Owner Register.
