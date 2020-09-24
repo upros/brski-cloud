@@ -277,7 +277,6 @@ The pledge should extract the "est-domain" field from the voucher, and should co
 
 # Protocol Details
 
-[[ TODO ]]  Missing detailed BRSKI steps e.g. CSR attributes, logging, etc.
 
 ## Voucher Request Redirected to Local Domain Registrar {#redirect2Registrar}
 
@@ -344,10 +343,6 @@ As trust is already established via the Voucher, the pledge does a full TLS hand
 The returned voucher contains an attribute, "est-domain", defined in {{redirected}} below.
 The pledge is directed to continue enrollment using the EST registrar found at that URI.
 The pledge uses the pinned-domain-cert from the voucher to authenticate the EST registrar.
-
-
-EXPLAIN APPLICABILITY.
-NEEDS EXTENSTION to Voucher.
 
 ~~~
 +--------+                                       +----------+
