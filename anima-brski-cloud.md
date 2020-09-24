@@ -286,10 +286,10 @@ The assumption is that the owner registrar domain is accessible and the pledge c
 This may require that the owner network firewall exposes the registrar on the public internet.
 
 ~~~
-+--------+            +-----------+              +----------+
-| Pledge |            | Owner     |              | Cloud RA |
-|        |            | Registrar |              |          |
-+--------+            +-----------+              +----------+
++--------+                                       +----------+
+| Pledge |                                       | Cloud RA |
+|        |                                       |          |
++--------+                                       +----------+
     |                                                 |
     | 1. Mutual-authenticated TLS                     |
     |<----------------------------------------------->|
@@ -300,9 +300,13 @@ This may require that the owner network firewall exposes the registrar on the pu
     | 3. 307 Location: owner-ra.example.com           |
     |<------------------------------------------------|
     |
-    | 4. Provisional TLS   |                     +---------+
-    |<-------------------->|                     |  MASA   |
-    |                      |                     +---------+
+    |                  +-----------+             +---------+
+    |                  | Owner     |             |  MASA   |
+    |                  | Registrar |             |         | 
+    |                  +-----------+             +---------+
+    | 4. Provisional TLS   |                          |
+    |<-------------------->|                          |
+    |                      |                          |
     | 5. Voucher Request   |                          |
     |--------------------->| 6. Voucher Request       |
     |                      |------------------------->|
