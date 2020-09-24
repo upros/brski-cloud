@@ -2,7 +2,7 @@
 
 title: "BRSKI Cloud Registrar"
 abbrev: BRSKI-CLOUD
-docname: draft-friel-anima-brski-cloud-02
+docname: draft-friel-anima-brski-cloud-03
 category: std
 ipr: trust200902
 
@@ -18,8 +18,8 @@ author:
  -
     ins: R. Shekh-Yusef
     name: Rifaat Shekh-Yusef
-    org: Avaya
-    email: rifaat.ietf@gmail.com
+    org: Auth0
+    email: rifaat.s.ietf@gmail.com
  -
     ins: M. Richardson
     name: Michael Richardson
