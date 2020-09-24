@@ -29,7 +29,7 @@ author:
 normative:
   RFC7030:
   RFC8366:
-  I-D.ietf-anima-bootstrapping-keyinfra:
+  I-D.ietf-anima-bootstrapping-keyinfra: BRSKI
 
 informative:
   RFC6125:
