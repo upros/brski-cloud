@@ -323,7 +323,7 @@ The process starts, in step 1, when the Pledge establishes a Mutual TLS channel 
 
 In step 2, the Pledge sends a voucher request to the Cloud RA.
 
-Prior to step 3, the Cloud RA completes pledge ownership lookup as outlined in {{pledgeOwnershipLookup}}, and determines the owner registrar domain.
+The Cloud RA completes pledge ownership lookup as outlined in {{pledgeOwnershipLookup}}, and determines the owner registrar domain.
 In step 3, the Cloud RA redirects the pledge to the owner registrar domain.
 
 Steps 4 and onwards follow the standard BRSKI flow.
