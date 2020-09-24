@@ -323,6 +323,11 @@ The Voucher includes the EST domain to use for EST enroll.
 It is assumed services are accessed at that domain too.
 As trust is already established via the Voucher, the pledge does a full TLS handshake against the local RA indicated by the voucher response.
 
+The returned voucher contains an attribute, "est-domain", defined in {{redirected}} below.
+The pledge is directed to continue enrollment using the EST registrar found at that URI.
+(XXX - how can it trust it? I guess with pinned-domain-cert!)
+
+
 EXPLAIN APPLICABILITY.
 NEEDS EXTENSTION to Voucher.
 
@@ -364,10 +369,21 @@ NEEDS EXTENSTION to Voucher.
     |--------------------->|                          |
 ~~~
 
+# YANG extension for Voucher based redirect {#redirected}
 
+An extension to the {{RFC8366}} voucher is needed for the case where the client will be redirected to a local EST Registrar.
+
+## YANG Tree
+
+INSERT_TEXT_FROM_FILE ietf-redirected-voucher-tree.txt END
+
+## YANG Voucher
+
+INSERT_TEXT_FROM_FILE ietf-redirected-voucher@DATE.yang END
 
 # IANA Considerations
 
+TODO:MCR - Will need to add IETF YANG registration from templates.
 [[ TODO ]]
 
 # Security Considerations
