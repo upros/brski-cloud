@@ -16,10 +16,10 @@ ${DRAFT}-${VERSION}.txt: ${DRAFT}.txt
 	: git add ${DRAFT}.xml
 
 %.txt: %.xml
-	unset DISPLAY; XML_LIBRARY=$(XML_LIBRARY):./src xml2rfc --text $? $@
+	unset DISPLAY; XML_LIBRARY=$(XML_LIBRARY):./src xml2rfc $? --text
 
 %.html: %.xml
-	unset DISPLAY; XML_LIBRARY=$(XML_LIBRARY):./src xml2rfc --html -o $@ $?
+	unset DISPLAY; XML_LIBRARY=$(XML_LIBRARY):./src xml2rfc $? --html -o $@
 
 yang:
 	mkdir -p yang
