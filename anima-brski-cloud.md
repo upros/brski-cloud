@@ -339,7 +339,7 @@ As trust is already established via the Voucher, the pledge does a full TLS hand
 
 The returned voucher contains an attribute, "est-domain", defined in {{redirected}} below.
 The pledge is directed to continue enrollment using the EST registrar found at that URI.
-(XXX - how can it trust it? I guess with pinned-domain-cert!)
+The pledge uses the pinned-domain-cert from the voucher to authenticate the EST registrar.
 
 
 EXPLAIN APPLICABILITY.
@@ -351,7 +351,7 @@ NEEDS EXTENSTION to Voucher.
 |        |                                       | / MASA   |
 +--------+                                       +----------+
     |                                                 |
-    | 1. Full TLS                                     |
+    | 1. Mutual TLS                                   |
     |<----------------------------------------------->|
     |                                                 |
     | 2. Voucher Request                              |
@@ -382,6 +382,27 @@ NEEDS EXTENSTION to Voucher.
     | 7. /enrollstatus     |                          |
     |--------------------->|                          |
 ~~~
+
+The process starts, in step 1, when the Pledge establishes a Mutual TLS channel with the Cloud RA/MASA using artifacts created during the manufacturing process of the Pledge.
+In step 2, the Pledge sends a voucher request to the Cloud RA/MASA, and in response the Pledge receives an {{RFC8366} format voucher from the Cloud RA/MASA that includes its assigned EST domain in the est-domain attribute.
+ 
+At this stage, the Pledge should be able to establish a TLS channel with the EST Registrar.
+The connection may involve crossing the Internet requiring a DNS lookup on the provided name.
+It may also be a local address that includes an IP address literal including both {{?RFC1918}} and IPv6 Unique Local Address.  
+The EST Registrar is validated using the pinned-domain-cert value provided in the voucher as described in section 5.6.2 of {{I-D.ietf-anima-bootstrapping-keyinfra}}.
+This involves treating the artifact provided in the pinned-domain-cert as a trust anchor, and attempting to validate the EST Registrar from this anchor only.  
+
+There is a case where the pinned-domain-cert is the identical End-Entity (EE) Certificate as the EST Registrar.  
+It also explicitly includes the case where the EST Registrar has a self-signed EE Certificate, but it may also be an EE certificate that is part of a larger PKI.
+If the certificate is not a self-signed or EE certificate, then the Pledge SHOULD apply {{!RFC6125}} DNS-ID validation on the certificate against the URL provided in the est-domain attribute. 
+If the est-domain was provided by with an IP address literal, then it is unlikely that it can be validated, and in that case, it is expected that either a self-signed certificate or an EE certificate will be pinned.  
+
+The Pledge also has the details it needs to be able to create the CSR request to send to the RA based on the details provided in the voucher.
+ 
+In step 4, the Pledge establishes a TLS channel with the Cloud RA/MASA, and optionally the pledge should send a request, steps 3.a and 3.b, to the Cloud RA/MASA to inform it that the Pledge was able to establish a secure TLS channel with the EST Registrar.
+ 
+The Pledge then follows that, in step 5, with an EST Enroll request with the CSR and obtains the requested certificate.
+The Pledge must validate that the issued certificate has the expected identifier obtained from the Cloud RA/MASA in step 3.
 
 # YANG extension for Voucher based redirect {#redirected}
 
