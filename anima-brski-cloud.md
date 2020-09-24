@@ -325,7 +325,7 @@ As trust is already established via the Voucher, the pledge does a full TLS hand
 
 The returned voucher contains an attribute, "est-domain", defined in {{redirected}} below.
 The pledge is directed to continue enrollment using the EST registrar found at that URI.
-(XXX - how can it trust it? I guess with pinned-domain-cert!)
+The pledge uses the pinned-domain-cert from the voucher to authenticate the EST registrar.
 
 
 EXPLAIN APPLICABILITY.
@@ -337,7 +337,7 @@ NEEDS EXTENSTION to Voucher.
 |        |                                       | / MASA   |
 +--------+                                       +----------+
     |                                                 |
-    | 1. Full TLS                                     |
+    | 1. Mutual TLS                                   |
     |<----------------------------------------------->|
     |                                                 |
     | 2. Voucher Request                              |
@@ -368,6 +368,17 @@ NEEDS EXTENSTION to Voucher.
     | 7. /enrollstatus     |                          |
     |--------------------->|                          |
 ~~~
+
+The process starts, in step 1, when the Pledge establishes a Mutual TLS channel with the Cloud RA/MASA using artifacts created during the manufacturing process of the Pledge.
+In step 2, the Pledge sends a voucher request to the Cloud RA/MASA, and in response the Pledge receives a voucher from the Cloud RA/MASA that includes its assigned EST domain.
+ 
+At this stage, the Pledge should be able to establish a TLS channel with the EST Registrar, validate the certificate provided by the EST Registrar has been issued either by a trusted public CA or by a private CA obtained from the Cloud RA/MASA, and validate that the identifier provided in the EST Registrar certificate matches the assigned EST domain obtained in Voucher.
+The Pledge also has the details it needs to be able to create the CSR request to send to the RA based on the details provided in the voucher.
+ 
+In step 4, the Pledge establishes a TLS channel with the Cloud RA/MASA, and optionally the pledge should send a request, steps 3.a and 3.b, to the Cloud RA/MASA to inform it that the Pledge was able to establish a secure TLS channel with the EST Registrar.
+ 
+The Pledge then follows that, in step 5, with an EST Enroll request with the CSR and obtains the requested certificate.
+The Pledge must validate that the issued certificate has the expected identifier obtained from the Cloud RA/MASA in step 3.
 
 # YANG extension for Voucher based redirect {#redirected}
 
