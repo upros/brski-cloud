@@ -71,6 +71,13 @@ description
             "The est-domain is a URL to which the Pledge should continue
              doing enrollment rather than with the Cloud Registrar.";
         }
+        leaf additional-configuration {
+          type ietf:uri;
+          description
+            "The additional-configuration attribute contains a URL to which the Pledge can retrieve additional configuration
+             information. The contents of this URL are vendor specific.  This is intended to do things like configure
+             a VoIP phone to point to the correct hosted PBX, for example.";
+        }
       }
     }
   }
