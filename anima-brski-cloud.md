@@ -226,7 +226,7 @@ Once ownership is determined, or if no owner can be determined, then the registr
 
 - issue a voucher and return a 200 response code
 
-### Pledge Ownership Lookup
+### Pledge Ownership Lookup {#pledgeOwnershipLookup}
 
 The cloud registrar needs some suitable mechanism for knowing the correct owner of a connecting pledge based on the presented identity certificate.
 For example, if the pledge establishes TLS using an IDevID that is signed by a known manufacturing CA, the registrar could extract the serial number from the IDevID and use this to lookup a database of pledge IDevID serial numbers to owners.
@@ -281,11 +281,13 @@ The pledge should extract the "est-domain" field from the voucher, and should co
 
 ## Voucher Request Redirected to Local Domain Registrar {#redirect2Registrar}
 
-This is FLOW ONE.  EXPLAIN APPLICABILITY.
+This flow illlustrates the Owner Registrar Discovery flow. A pledge is bootstrapping in a remote location with no local domain registrar.
+The assumption is that the owner registrar domain is accessible and the pledge can establish a network connection with the owner registrar.
+This may require that the owner network firewall exposes the registrar on the public internet.
 
 ~~~
 +--------+            +-----------+              +----------+
-| Pledge |            | Local     |              | Cloud RA |
+| Pledge |            | Owner     |              | Cloud RA |
 |        |            | Registrar |              |          |
 +--------+            +-----------+              +----------+
     |                                                 |
@@ -295,7 +297,7 @@ This is FLOW ONE.  EXPLAIN APPLICABILITY.
     | 2. Voucher Request                              |
     |------------------------------------------------>|
     |                                                 |
-    | 3. 307 Location: localra.example.com            |
+    | 3. 307 Location: owner-ra.example.com           |
     |<------------------------------------------------|
     |
     | 4. Provisional TLS   |                     +---------+
@@ -316,6 +318,18 @@ This is FLOW ONE.  EXPLAIN APPLICABILITY.
     | 10. etc.             |                          |
     |--------------------->|                          |
 ~~~
+
+The process starts, in step 1, when the Pledge establishes a Mutual TLS channel with the Cloud RA using artifacts created during the manufacturing process of the Pledge.
+
+In step 2, the Pledge sends a voucher request to the Cloud RA.
+
+Prior to step 3, the Cloud RA completes pledge ownership lookup as outlined in {{pledgeOwnershipLookup}}, and determines the owner registrar domain.
+In step 3, the Cloud RA redirects the pledge to the owner registrar domain.
+
+Steps 4 and onwards follow the standard BRSKI flow.
+The pledge establishes a provisional TLS connection with the owner registrar, and sends a voucher request to the owner registrar.
+The registar forwards the voucher request to the MASA.
+Assuming the MASA issues a voucher, then the pledge validates the TLS connection with the registrar using the pinned-domain-cert from the voucher and completes the BRSKI flow.
 
 ## Voucher Request Handled by Cloud Registrar {#voucher2EST}
 
