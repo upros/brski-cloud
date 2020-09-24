@@ -245,10 +245,10 @@ If the cloud registrar issues a voucher, it returns the voucher in a HTTP respon
 
 The cloud registrar MAY issue a 202 response code if it is willing to issue a voucher, but will take some time to prepare the voucher.
 
-The voucher MUST include the "est-domain" field as defined in [[TODO RFC draft needed ? ]].
+The voucher MUST include the "est-domain" field as defined below.
 This tells the pledge where the domain of the EST service to use for completing certificate enrollment.
 
-The voucher MAY include the "additional-configuration" field as defined in [[ TODO RFC draft needed? ]].
+The voucher MAY include the "additional-configuration" field..
 This points the pledge to a URI where application specific additional configuration information may be retrieved.
 Pledge and Registrar behavior for handling and specifying the "additional-configuration" field is out-of-scope of this document.
 
