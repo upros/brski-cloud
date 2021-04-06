@@ -11,7 +11,7 @@ ${DRAFT}-${VERSION}.txt: ${DRAFT}.txt
 	: git add ${DRAFT}-${VERSION}.txt ${DRAFT}.txt
 
 %.xml: %.md ${EXAMPLES}
-	kramdown-rfc2629 ${DRAFT}.md | ./insert-figures >${DRAFT}.v2.xml
+	kramdown-rfc2629 -3 ${DRAFT}.md | ./insert-figures >${DRAFT}.v2.xml
 	xml2rfc --v2v3 ${DRAFT}.v2.xml && mv ${DRAFT}.v2.v2v3.xml ${DRAFT}.xml
 	: git add ${DRAFT}.xml
 

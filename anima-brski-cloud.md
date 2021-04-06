@@ -379,7 +379,7 @@ The pledge uses the pinned-domain-cert from the voucher to authenticate the EST 
 ~~~
 
 The process starts, in step 1, when the Pledge establishes a Mutual TLS channel with the Cloud RA/MASA using artifacts created during the manufacturing process of the Pledge.
-In step 2, the Pledge sends a voucher request to the Cloud RA/MASA, and in response the Pledge receives an {{RFC8366} format voucher from the Cloud RA/MASA that includes its assigned EST domain in the est-domain attribute.
+In step 2, the Pledge sends a voucher request to the Cloud RA/MASA, and in response the Pledge receives an {{RFC8366}} format voucher from the Cloud RA/MASA that includes its assigned EST domain in the est-domain attribute.
 
 At this stage, the Pledge should be able to establish a TLS channel with the EST Registrar.
 The connection may involve crossing the Internet requiring a DNS lookup on the provided name.
