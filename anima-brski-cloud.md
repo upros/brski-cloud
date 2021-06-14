@@ -261,10 +261,12 @@ Pledge and Registrar behavior for handling and specifying the "additional-config
 ### Redirect Response
 
 The cloud registrar returned a 307 response to the voucher request.
+
 The pledge should restart the process using a new voucher request using the location provided in the HTTP redirect.
 Note if the pledge is able to validate the new server using a trust anchor found in its Implicit Trust Anchor database, then it MAY accept another 307 redirect.
 The pledge MUST never visit a location that it has already been to.
 If that happens then the pledge MUST fail the onboarding attempt and go back to the beginning, which includes listening to other sources of onboarding information as specified in {{BRSKI}} section 4.1 and 5.0.
+
 
 The pledge should establish a provisional TLS connection with specified local domain registrar.
 The pledge should not use its Implicit Trust Anchor database for validating the local domain registrar identity.
