@@ -29,7 +29,7 @@ author:
 normative:
   RFC7030:
   RFC8366:
-  RFC8995: BRSKI
+  BRSKI: RFC8995
 
 informative:
   RFC6125:
@@ -51,7 +51,7 @@ RFCED REMOVE: It is being actively worked on at https://github.com/anima-wg/brsk
 
 # Introduction
 
-Bootstrapping Remote Secure Key Infrastructures (BRSKI) {{I-D.ietf-anima-bootstrapping-keyinfra}} specifies automated bootstrapping of an Autonomic Control Plane.
+Bootstrapping Remote Secure Key Infrastructures {{BRSKI}} specifies automated bootstrapping of an Autonomic Control Plane.
 BRSKI Section 2.7 describes how a pledge "MAY contact a well known URI of a cloud registrar if a local registrar cannot be discovered or if the pledge's target use cases do not include a local registrar".
 
 This document further specifies use of a BRSKI cloud registrar and clarifies operations that are not sufficiently specified in BRSKI.
@@ -60,7 +60,7 @@ This document further specifies use of a BRSKI cloud registrar and clarifies ope
 
 {::boilerplate bcp14}
 
-This document uses the terms Pledge, Registrar, MASA, and Voucher from {{I-D.ietf-anima-bootstrapping-keyinfra}} and {{RFC8366}}.
+This document uses the terms Pledge, Registrar, MASA, and Voucher from {{BRSKI}} and {{RFC8366}}.
 
 - Local Domain: The domain where the pledge is physically located and bootstrapping from.
 This may be different to the pledge owner's domain.
@@ -384,7 +384,7 @@ In step 2, the Pledge sends a voucher request to the Cloud RA/MASA, and in respo
 At this stage, the Pledge should be able to establish a TLS channel with the EST Registrar.
 The connection may involve crossing the Internet requiring a DNS lookup on the provided name.
 It may also be a local address that includes an IP address literal including both {{?RFC1918}} and IPv6 Unique Local Address.
-The EST Registrar is validated using the pinned-domain-cert value provided in the voucher as described in section 5.6.2 of {{I-D.ietf-anima-bootstrapping-keyinfra}}.
+The EST Registrar is validated using the pinned-domain-cert value provided in the voucher as described in {{Section 5.6.2 of BRSKI}}.
 This involves treating the artifact provided in the pinned-domain-cert as a trust anchor, and attempting to validate the EST Registrar from this anchor only.
 
 There is a case where the pinned-domain-cert is the identical End-Entity (EE) Certificate as the EST Registrar.
