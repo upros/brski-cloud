@@ -33,6 +33,8 @@ normative:
 
 informative:
   RFC6125:
+  RFC3688:
+  RFC6020:
   IEEE802.1AR:
     target: "http://standards.ieee.org/findstds/standard/802.1AR-2018.html"
     title: "IEEE 802.1AR Secure Device Identifier"
@@ -413,8 +415,37 @@ INSERT_TEXT_FROM_FILE ietf-redirected-voucher@DATE.yang END
 
 # IANA Considerations
 
-TODO:MCR - Will need to add IETF YANG registration from templates.
-[[ TODO ]]
+## The IETF XML Registry
+
+This document registers one URI in the IETF XML registry {{RFC3688}}.
+Following the format in {{RFC3688}}, the following registration is requested:
+
+{: newline="true"}
+URI:
+: urn:ietf:params:xml:ns:yang:ietf-voucher-redirected
+
+Registrant Contact:
+: The ANIMA WG of the IETF.
+
+XML:
+: N/A, the requested URI is an XML namespace.
+
+## The YANG Module Names Registry
+
+This document registers two YANG modules in the YANG Module Names registry {{RFC6020}}.  Following the format defined in {{RFC6020}}, the the following registration is requested:
+
+{: newline="true"}
+name:
+: ietf-voucher-redirected
+
+namespace:
+: urn:ietf:params:xml:ns:yang:ietf-voucher-redirected
+
+prefix:
+: vch
+
+reference:
+: THIS DOCUMENT
 
 # Security Considerations
 
