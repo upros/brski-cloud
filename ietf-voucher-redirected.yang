@@ -1,8 +1,8 @@
-module ietf-redirected-voucher {
+module ietf-voucher-redirected {
   yang-version 1.1;
 
   namespace
-    "urn:ietf:params:xml:ns:yang:ietf-redirected-voucher";
+    "urn:ietf:params:xml:ns:yang:ietf-voucher-redirected";
   prefix "redirected";
 
   import ietf-restconf {

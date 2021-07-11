@@ -2,7 +2,7 @@
 
 title: "BRSKI Cloud Registrar"
 abbrev: BRSKI-CLOUD
-docname: draft-ietf-anima-brski-cloud-00
+docname: draft-ietf-anima-brski-cloud-01
 category: std
 ipr: trust200902
 
@@ -407,11 +407,11 @@ An extension to the {{RFC8366}} voucher is needed for the case where the client 
 
 ## YANG Tree
 
-INSERT_TEXT_FROM_FILE ietf-redirected-voucher-tree.txt END
+INSERT_TEXT_FROM_FILE ietf-voucher-redirected-tree.txt END
 
 ## YANG Voucher
 
-INSERT_TEXT_FROM_FILE ietf-redirected-voucher@DATE.yang END
+INSERT_TEXT_FROM_FILE ietf-voucher-redirected@DATE.yang END
 
 # IANA Considerations
 
