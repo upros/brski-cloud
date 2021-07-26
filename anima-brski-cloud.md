@@ -451,7 +451,7 @@ reference:
 # Security Considerations
 
 The Cloud-Registrar described in this document inherits all of the issues that are described in {{BRSKI}}.
-This includes dependency upon continued operation of the manufacturer provided MASA, as well is potential complications where a manufacturer might interfere with
+This includes dependency upon continued operation of the manufacturer provided MASA, as well as potential complications where a manufacturer might interfere with
 resale of a device.
 
 In addition to the dependency upon the MASA, the successful enrollment of a device using a Cloud Registrar depends upon the correct and continued operation of this new service.
@@ -462,25 +462,25 @@ All of the considerations for operation of the MASA also apply to operation of t
 
 If the Redirect to Registrar method is used, as described in {{redirect2Registrar}},
 there may be a series of 307 redirects.
-An example of why this might occur is that the manufacturer only knows that it resold the device to a particular value added reseller (VAR), and there may be a chain of such things.
+An example of why this might occur is that the manufacturer only knows that it resold the device to a particular value added reseller (VAR), and there may be a chain of such VARs.
 It is important the pledge avoid being drawn into a loop of redirects.
-This could happen if a VAR does not think they are authoritative for a particular device, it must return an error.
-A "helpful" programmer might instead decide to redirect back to the manufacturer in an attempt to restart at the top:  perhaps there is another process that updates the manufacturers' database and this process is underway.
+This could happen if a VAR does not think they are authoritative for a particular device.
+A "helpful" programmer might instead decide to redirect back to the manufacturer in an attempt to restart at the top:  perhaps there is another process that updates the manufacturer's database and this process is underway.
 Instead, the VAR MUST return a 404 error if it can not process the device.
 This will force the device to stop, timeout, and then try all mechanisms again.
 
 There is another case where a connection problem may occur: when the pledge is behind a captive portal or an intelligent home gateway that provides access control on all connections.
-Captive portal that do not follow the requirements of {{?RFC8952}} section 1 may forcibly redirect HTTPS connections.
+Captive portals that do not follow the requirements of {{?RFC8952}} section 1 may forcibly redirect HTTPS connections.
 While this is a deprecated practice as it breaks TLS in a way that most users can not deal with, it is still common in many networks.
 
 On the first connection, the incorrect connection will be discovered because the Pledge will be unable to validate the connection to it's cloud registrar via DNS-ID.
 That is, the certificate returned from the captive portal will not match.
 
-At this point a network operator who controls the captive portal may, noticing the connection to what seems a legitimate destination (the cloud registrar), may then permit that connection.
-This enables connection 1 to go through.
+At this point a network operator who controls the captive portal, noticing the connection to what seems a legitimate destination (the cloud registrar), may then permit that connection.
+This enables the first connection to go through.
 
 The connection is then redirected to the Registrar, either via 307, or via est-domain in a voucher.
-If it is a 307 redirect, then a provisional TLS connection will be initiated, and it will success.
+If it is a 307 redirect, then a provisional TLS connection will be initiated, and it will succeed.
 The provisional TLS connection does not do {{RFC6125}} DNS-ID validation at the beginning of the connection, so a forced redirection to a captive portal system will not be detected.
 The subsequent BRSKI POST of a voucher will most likely be met by a 404 or 500 HTTP code.
 As the connection is provisional, the pledge will be unable to determine this.
@@ -516,6 +516,3 @@ It may be the case that one or more 307-Redirects have taken the Pledge from the
 
 When the Pledge is directed to the Owner's {{EST}} Registrar, the Pledge validates the TLS connection with this server using the "pinned-domain-cert" attribute in the voucher.
 There is no provisional TLS connection, and therefore there are no risks associated with being behind a captive portal.
-
-
-
