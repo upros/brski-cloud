@@ -392,7 +392,7 @@ In step 2, the Pledge sends a voucher request to the Cloud RA/MASA, and in respo
 At this stage, the Pledge should be able to establish a TLS channel with the EST Registrar.
 The connection may involve crossing the Internet requiring a DNS lookup on the provided name.
 It may also be a local address that includes an IP address literal including both {{?RFC1918}} and IPv6 Unique Local Address.
-The EST Registrar is validated using the pinned-domain-cert value provided in the voucher as described in {{Section 5.6.2 of BRSKI}}.
+The EST Registrar is validated using the pinned-domain-cert value provided in the voucher as described in {{BRSKI}} section 5.6.2.
 This involves treating the artifact provided in the pinned-domain-cert as a trust anchor, and attempting to validate the EST Registrar from this anchor only.
 
 There is a case where the pinned-domain-cert is the identical End-Entity (EE) Certificate as the EST Registrar.
