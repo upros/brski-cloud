@@ -426,6 +426,7 @@ INSERT_TEXT_FROM_FILE ietf-voucher-redirected@DATE.yang END
 This document registers one URI in the IETF XML registry {{RFC3688}}.
 Following the format in {{RFC3688}}, the following registration is requested:
 
+~~~
 {: newline="true"}
 URI:
 : urn:ietf:params:xml:ns:yang:ietf-voucher-redirected
@@ -435,11 +436,13 @@ Registrant Contact:
 
 XML:
 : N/A, the requested URI is an XML namespace.
+~~~
 
 ## The YANG Module Names Registry
 
 This document registers two YANG modules in the YANG Module Names registry {{RFC6020}}.  Following the format defined in {{RFC6020}}, the the following registration is requested:
 
+~~~
 {: newline="true"}
 name:
 : ietf-voucher-redirected
@@ -452,6 +455,7 @@ prefix:
 
 reference:
 : THIS DOCUMENT
+~~~
 
 # Security Considerations
 
