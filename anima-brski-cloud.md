@@ -101,6 +101,7 @@ The cloud registrar redirects the pledge to the owner registrar, and the pledge 
 
 A typical example is an enduser deploying a pledge in a home or small branch office, where the pledge belongs to the enduser's employer.
 There is no local domain registrar, and the pledge needs to discover and bootstrap with the employer's registrar which is deployed in headquarters.
+For example, an enduser is deploying an IP phone in a home office and the phone needs to register to an IP PBX deployed in their employer's office.
 
 ### Bootstrapping with no Owner Registrar
 
@@ -260,7 +261,13 @@ Pledge and Registrar behavior for handling and specifying the "additional-config
 ### Redirect Response
 
 The cloud registrar returned a 307 response to the voucher request.
-The pledge should complete BRSKI bootstrap as per standard BRSKI operation after following the HTTP redirect.
+
+The pledge should restart the process using a new voucher request using the location provided in the HTTP redirect.
+Note if the pledge is able to validate the new server using a trust anchor found in its Implicit Trust Anchor database, then it MAY accept another 307 redirect.
+The pledge MUST never visit a location that it has already been to.
+If that happens then the pledge MUST fail the onboarding attempt and go back to the beginning, which includes listening to other sources of onboarding information as specified in {{BRSKI}} section 4.1 and 5.0.
+
+
 The pledge should establish a provisional TLS connection with specified local domain registrar.
 The pledge should not use its Implicit Trust Anchor database for validating the local domain registrar identity.
 The pledge should send a voucher request message via the local domain registrar.
@@ -387,7 +394,7 @@ In step 2, the Pledge sends a voucher request to the Cloud RA/MASA, and in respo
 At this stage, the Pledge should be able to establish a TLS channel with the EST Registrar.
 The connection may involve crossing the Internet requiring a DNS lookup on the provided name.
 It may also be a local address that includes an IP address literal including both {{?RFC1918}} and IPv6 Unique Local Address.
-The EST Registrar is validated using the pinned-domain-cert value provided in the voucher as described in {{Section 5.6.2 of BRSKI}}.
+The EST Registrar is validated using the pinned-domain-cert value provided in the voucher as described in {{BRSKI}} section 5.6.2.
 This involves treating the artifact provided in the pinned-domain-cert as a trust anchor, and attempting to validate the EST Registrar from this anchor only.
 
 There is a case where the pinned-domain-cert is the identical End-Entity (EE) Certificate as the EST Registrar.
@@ -421,6 +428,7 @@ INSERT_TEXT_FROM_FILE ietf-voucher-redirected@DATE.yang END
 This document registers one URI in the IETF XML registry {{RFC3688}}.
 Following the format in {{RFC3688}}, the following registration is requested:
 
+~~~
 {: newline="true"}
 URI:
 : urn:ietf:params:xml:ns:yang:ietf-voucher-redirected
@@ -430,11 +438,13 @@ Registrant Contact:
 
 XML:
 : N/A, the requested URI is an XML namespace.
+~~~
 
 ## The YANG Module Names Registry
 
 This document registers two YANG modules in the YANG Module Names registry {{RFC6020}}.  Following the format defined in {{RFC6020}}, the the following registration is requested:
 
+~~~
 {: newline="true"}
 name:
 : ietf-voucher-redirected
@@ -447,11 +457,12 @@ prefix:
 
 reference:
 : THIS DOCUMENT
+~~~
 
 # Security Considerations
 
 The Cloud-Registrar described in this document inherits all of the issues that are described in {{BRSKI}}.
-This includes dependency upon continued operation of the manufacturer provided MASA, as well is potential complications where a manufacturer might interfere with
+This includes dependency upon continued operation of the manufacturer provided MASA, as well as potential complications where a manufacturer might interfere with
 resale of a device.
 
 In addition to the dependency upon the MASA, the successful enrollment of a device using a Cloud Registrar depends upon the correct and continued operation of this new service.
@@ -462,25 +473,25 @@ All of the considerations for operation of the MASA also apply to operation of t
 
 If the Redirect to Registrar method is used, as described in {{redirect2Registrar}},
 there may be a series of 307 redirects.
-An example of why this might occur is that the manufacturer only knows that it resold the device to a particular value added reseller (VAR), and there may be a chain of such things.
+An example of why this might occur is that the manufacturer only knows that it resold the device to a particular value added reseller (VAR), and there may be a chain of such VARs.
 It is important the pledge avoid being drawn into a loop of redirects.
-This could happen if a VAR does not think they are authoritative for a particular device, it must return an error.
-A "helpful" programmer might instead decide to redirect back to the manufacturer in an attempt to restart at the top:  perhaps there is another process that updates the manufacturers' database and this process is underway.
+This could happen if a VAR does not think they are authoritative for a particular device.
+A "helpful" programmer might instead decide to redirect back to the manufacturer in an attempt to restart at the top:  perhaps there is another process that updates the manufacturer's database and this process is underway.
 Instead, the VAR MUST return a 404 error if it can not process the device.
 This will force the device to stop, timeout, and then try all mechanisms again.
 
 There is another case where a connection problem may occur: when the pledge is behind a captive portal or an intelligent home gateway that provides access control on all connections.
-Captive portal that do not follow the requirements of {{?RFC8952}} section 1 may forcibly redirect HTTPS connections.
+Captive portals that do not follow the requirements of {{?RFC8952}} section 1 may forcibly redirect HTTPS connections.
 While this is a deprecated practice as it breaks TLS in a way that most users can not deal with, it is still common in many networks.
 
 On the first connection, the incorrect connection will be discovered because the Pledge will be unable to validate the connection to it's cloud registrar via DNS-ID.
 That is, the certificate returned from the captive portal will not match.
 
-At this point a network operator who controls the captive portal may, noticing the connection to what seems a legitimate destination (the cloud registrar), may then permit that connection.
-This enables connection 1 to go through.
+At this point a network operator who controls the captive portal, noticing the connection to what seems a legitimate destination (the cloud registrar), may then permit that connection.
+This enables the first connection to go through.
 
 The connection is then redirected to the Registrar, either via 307, or via est-domain in a voucher.
-If it is a 307 redirect, then a provisional TLS connection will be initiated, and it will success.
+If it is a 307 redirect, then a provisional TLS connection will be initiated, and it will succeed.
 The provisional TLS connection does not do {{RFC6125}} DNS-ID validation at the beginning of the connection, so a forced redirection to a captive portal system will not be detected.
 The subsequent BRSKI POST of a voucher will most likely be met by a 404 or 500 HTTP code.
 As the connection is provisional, the pledge will be unable to determine this.
@@ -516,6 +527,3 @@ It may be the case that one or more 307-Redirects have taken the Pledge from the
 
 When the Pledge is directed to the Owner's {{EST}} Registrar, the Pledge validates the TLS connection with this server using the "pinned-domain-cert" attribute in the voucher.
 There is no provisional TLS connection, and therefore there are no risks associated with being behind a captive portal.
-
-
-
