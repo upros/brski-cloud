@@ -36,7 +36,7 @@ informative:
   RFC6125:
   RFC3688:
   RFC6020:
-  I-D.richardson-t2trg-idevid-considerations:
+  I-D.irtf-t2trg-taxonomy-manufacturer-anchors:
   IEEE802.1AR:
     target: "http://standards.ieee.org/findstds/standard/802.1AR-2018.html"
     title: "IEEE 802.1AR Secure Device Identifier"
@@ -476,7 +476,7 @@ This list is built-in by the manufacturer along with a DNS name to which to conn
 
 The Cloud Registrar does not have a certificate that can be validated using a public (WebPKI) anchor.
 The pledge may have any kind of Trust Anchor built in: from full multi-level WebPKI to the single self-signed certificate used by the Cloud Registrar.
-There are many tradeoffs to having more or less of the PKI present in the Pledge, which is addresses in part in {{I-D.richardson-t2trg-idevid-considerations}} in sections 3 and 5.
+There are many tradeoffs to having more or less of the PKI present in the Pledge, which is addresses in part in {{?I-D.irtf-t2trg-taxonomy-manufacturer-anchors}} in sections 3 and 5.
 
 ## Issues with Redirect via Voucher
 
