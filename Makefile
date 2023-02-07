@@ -1,10 +1,5 @@
 DRAFT:=anima-brski-cloud
 VERSION:=$(shell ./getver ${DRAFT}.md )
-YANGDATE=2020-09-23
-YANGFILE=yang/ietf-voucher-redirected@${YANGDATE}.yang
-PYANG=pyang
-EXAMPLES=ietf-voucher-redirected-tree.txt
-EXAMPLES+=${YANGFILE}
 
 ${DRAFT}-${VERSION}.txt: ${DRAFT}.txt
 	cp ${DRAFT}.txt ${DRAFT}-${VERSION}.txt
@@ -21,17 +16,8 @@ ${DRAFT}-${VERSION}.txt: ${DRAFT}.txt
 %.html: %.xml
 	unset DISPLAY; XML_LIBRARY=$(XML_LIBRARY):./src xml2rfc $? --html -o $@
 
-yang:
-	mkdir -p yang
-
-${YANGFILE}: ietf-voucher-redirected.yang yang
-	sed -e"s/YYYY-MM-DD/${YANGDATE}/" ietf-voucher-redirected.yang > ${YANGFILE}
-
-ietf-voucher-redirected-tree.txt: ${YANGFILE} yang
-	pyang --path=../voucher -f tree --tree-print-groupings ${YANGFILE} > ietf-voucher-redirected-tree.txt
-
 submit: ${DRAFT}.xml
-	curl -S -F "user=mcr+ietf@sandelman.ca" -F "xml=@${DRAFT}.xml;type=application/xml" https://datatracker.ietf.org/api/submit
+	curl -S -F "user=mcr+ietf@sandelman.ca" -F "xml=@${DRAFT}.xml;type=application/xml" https://datatracker.ietf.org/api/submission | jq
 
 version:
 	echo Version: ${VERSION}

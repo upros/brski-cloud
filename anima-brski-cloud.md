@@ -30,6 +30,7 @@ normative:
   RFC8366: VOUCHER
   BRSKI: RFC8995
   EST:   RFC7030
+  RFC8366bis: I-D.ietf-anima-rfc8366bis
 
 informative:
   RFC6125:
@@ -414,53 +415,11 @@ The Pledge must validate that the issued certificate has the expected identifier
 
 # YANG extension for Voucher based redirect {#redirected}
 
-An extension to the {{RFC8366}} voucher is needed for the case where the client will be redirected to a local EST Registrar.
-
-## YANG Tree
-
-INSERT_TEXT_FROM_FILE ietf-voucher-redirected-tree.txt END
-
-## YANG Voucher
-
-INSERT_TEXT_FROM_FILE ietf-voucher-redirected@DATE.yang END
+{{RFC8366bis}} contains the two needed voucher extensions: est-domain and additional-configuration which are needed when a client is redirected to a local EST Registrar.
 
 # IANA Considerations
 
-## The IETF XML Registry
-
-This document registers one URI in the IETF XML registry {{RFC3688}}.
-Following the format in {{RFC3688}}, the following registration is requested:
-
-~~~
-{: newline="true"}
-URI:
-: urn:ietf:params:xml:ns:yang:ietf-voucher-redirected
-
-Registrant Contact:
-: The ANIMA WG of the IETF.
-
-XML:
-: N/A, the requested URI is an XML namespace.
-~~~
-
-## The YANG Module Names Registry
-
-This document registers two YANG modules in the YANG Module Names registry {{RFC6020}}.  Following the format defined in {{RFC6020}}, the the following registration is requested:
-
-~~~
-{: newline="true"}
-name:
-: ietf-voucher-redirected
-
-namespace:
-: urn:ietf:params:xml:ns:yang:ietf-voucher-redirected
-
-prefix:
-: vch
-
-reference:
-: THIS DOCUMENT
-~~~
+This document makes no IANA requests.
 
 # Security Considerations
 
